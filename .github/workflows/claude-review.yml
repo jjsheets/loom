@@ -1,0 +1,29 @@
+# .github/workflows/claude-review.yml
+name: Claude Code Review
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Review this pull request. Focus on:
+            1. Security vulnerabilities
+            2. Performance regressions
+            3. Missing error handling
+            4. Test coverage
+            5. Documentation accuracy
+            Post your review as a PR comment.
