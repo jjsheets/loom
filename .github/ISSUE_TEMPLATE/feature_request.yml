@@ -1,0 +1,104 @@
+name: Feature request
+description: Behaviour the engine is missing.
+title: "[REQ] "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One feature per issue. Search open and closed issues first, but file it
+        anyway if you are unsure whether it is a duplicate.
+
+        Describe what is missing before describing how to build it. The
+        implementation is the part an agent is good at; the reason the feature
+        needs to exist is the part it cannot infer.
+
+  - type: textarea
+    id: missing-behaviour
+    attributes:
+      label: Missing behaviour
+      description: >-
+        What the engine cannot do today, stated as behaviour rather than as an
+        implementation — "there is no way to X" rather than "add a Y struct". If
+        you already know the shape you want, that goes further down.
+    validations:
+      required: true
+
+  - type: textarea
+    id: unblocks
+    attributes:
+      label: What it unblocks
+      description: >-
+        The concrete thing you are trying to build that this makes possible, or the
+        pain it removes. This is the highest-value field in the form: it is what
+        lets the implementer resolve a design trade-off the request never
+        anticipated, and it is the difference between a feature that fits and one
+        that technically satisfies the words.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: settled
+    attributes:
+      label: How settled is this?
+      description: >-
+        Whether to build it or discuss it. On "Exploratory" the implementer should
+        comment with a proposed approach and wait for a reply rather than opening a
+        pull request.
+      options:
+        - Settled — implement as described
+        - Direction agreed, details open
+        - Exploratory — discuss before implementing
+    validations:
+      required: true
+
+  - type: textarea
+    id: usage-sketch
+    attributes:
+      label: What using it should look like
+      description: >-
+        Sketch the call site. Pseudo-code, a rough signature, or a few lines of
+        how you want it to read are all fine, and none of it is binding — it
+        communicates ergonomics faster than prose.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives, or how you work around it today
+      description: >-
+        Other designs you weighed and set aside, and why. If you have a workaround,
+        describe it: how bad it is calibrates how much complexity the real fix is
+        worth.
+
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Explicitly out of scope
+      description: >-
+        What this should not grow into. Adjacent features that look like natural
+        extensions but that you do not want built yet, generality you do not want
+        paid for, cases deliberately left unhandled. Unbounded scope is the most
+        common way agent-implemented work goes wrong, and this field is the cheapest
+        defence against it.
+
+  - type: textarea
+    id: done-when
+    attributes:
+      label: Done when
+      description: >-
+        The condition that makes this issue closeable, written so it can be checked
+        rather than argued about — behaviour demonstrated by a test, an example that
+        compiles and runs, a public API that exists and is documented. Leave blank
+        to let the implementer propose the criteria in the pull request.
+
+  - type: textarea
+    id: implementer-notes
+    attributes:
+      label: Notes for the implementer
+      description: >-
+        Direction you want followed, if you have any. Prior art in other engines,
+        crates to use or avoid, constraints on allocation or per-frame cost, whether
+        `unsafe` is acceptable here, implications for the public API, serialization
+        or asset formats. Blank is fine and means "you decide" — it does not mean
+        "there are no constraints", so the implementer will record the calls it made
+        under Assumptions in the pull request.

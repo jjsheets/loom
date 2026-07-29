@@ -1,0 +1,116 @@
+name: Bug report
+description: Something the engine does that it shouldn't, or doesn't do that it should.
+title: "[BUG] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One bug per issue — if you noticed three things, file three issues. Search
+        open and closed issues first, but if you are unsure whether something is a
+        duplicate, file it anyway.
+
+        Paste errors, panics and backtraces as text, never as a screenshot: text is
+        searchable and can be copied into a test.
+
+        An agent will almost certainly implement the fix, and it cannot ask you a
+        follow-up question later. Anything you know and leave out is something it
+        will guess at.
+
+  - type: textarea
+    id: what-happens
+    attributes:
+      label: What happens
+      description: >-
+        The behaviour you actually observed. Include the exact panic or error text
+        verbatim rather than a paraphrase.
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-should-happen
+    attributes:
+      label: What should happen instead
+      description: >-
+        The behaviour you expected, **and why you expected it** — a doc comment, a
+        stated API contract, an invariant the type system implies, or how a
+        comparable engine behaves. In a pre-1.0 engine "expected" is often a
+        judgement call, and saying whose judgement it is stops the implementer
+        inventing a rationale for you.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: >-
+        As minimal and precise as you can make it. A failing `#[test]` is the ideal
+        form — it is both the reproduction and the regression test. Otherwise, a
+        short `main.rs` or a numbered list of steps. Note any preconditions that
+        are easy to forget: feature flags, platform, prior state.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: reliability
+    attributes:
+      label: Does it reproduce reliably?
+      description: >-
+        Changes how the fix should be approached. An intermittent failure points at
+        ordering, timing or uninitialised state, and needs a different kind of test
+        than a deterministic one.
+      options:
+        - Always
+        - Intermittently
+        - Saw it once, could not reproduce
+        - Have not tried
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Commit hash, tag, or branch. "latest main" is a fine answer.
+      placeholder: main @ 7b7ae2a
+
+  - type: input
+    id: location
+    attributes:
+      label: Where it happens
+      description: >-
+        Crate, module or file path, if you already know. Leave blank if you don't —
+        a guess here costs the implementer more than it saves.
+      placeholder: src/render/mesh.rs
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: >-
+        OS and version, and `rustc --version --verbose` output. For anything
+        touching rendering, also give the GPU model, driver version and backend.
+        Skip this if the bug is plainly platform-independent.
+
+  - type: textarea
+    id: done-when
+    attributes:
+      label: Done when
+      description: >-
+        The condition that makes this issue closeable, written so that it can be
+        checked rather than argued about. For most bugs the default is "a test that
+        fails on the current code and passes after the fix" — say so explicitly if
+        that is what you want, and say something else if it isn't. Leave blank to
+        let the implementer propose the criteria in the pull request.
+
+  - type: textarea
+    id: implementer-notes
+    attributes:
+      label: Notes for the implementer
+      description: >-
+        Direction you want followed, if you have any. Suspected cause, files worth
+        reading first, an approach to prefer or avoid, dead ends you already ruled
+        out, related issues or prior fixes. Blank is fine and means "you decide" —
+        it does not mean "there are no constraints", so the implementer will record
+        the calls it made under Assumptions in the pull request.

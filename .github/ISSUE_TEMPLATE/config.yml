@@ -1,0 +1,5 @@
+# Every issue goes through one of the three templates. An agent implements
+# nearly all of them and cannot ask follow-up questions after the fact, so a
+# blank issue is a spec with no required fields — exactly the failure mode the
+# templates exist to prevent.
+blank_issues_enabled: false
