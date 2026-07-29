@@ -73,7 +73,7 @@ body:
     attributes:
       label: Version
       description: Commit hash, tag, or branch. "latest main" is a fine answer.
-      placeholder: main @ 7b7ae2a
+      placeholder: main @ <commit hash>
 
   - type: input
     id: location
@@ -82,7 +82,6 @@ body:
       description: >-
         Crate, module or file path, if you already know. Leave blank if you don't —
         a guess here costs the implementer more than it saves.
-      placeholder: src/render/mesh.rs
 
   - type: textarea
     id: environment

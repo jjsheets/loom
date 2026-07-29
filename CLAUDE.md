@@ -29,10 +29,11 @@ with what you would have done unprompted, follow it. If you deviate anyway,
 the deviation and its reason belong under Design decisions in the pull
 request.
 
-An empty optional field means the filer did not specify, not that there are no
-constraints. Make the call yourself rather than stalling, then record it under
-Assumptions in the pull request — that section exists precisely to catch the
-guesses that an issue left open.
+A skipped optional field renders as `_No response_` in the issue body. That
+means the filer did not specify, not that there are no constraints. Make the
+call yourself rather than stalling, then record it under Assumptions in the
+pull request — that section exists precisely to catch the guesses that an issue
+left open.
 
 On a `[REQ]` marked **Exploratory — discuss before implementing**, do not open
 a pull request. Comment on the issue with a proposed approach and wait for a
