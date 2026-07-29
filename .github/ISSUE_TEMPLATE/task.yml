@@ -1,0 +1,81 @@
+name: Repository task
+description: Work on the repository itself — CI, docs, templates, releases — not on engine behaviour.
+title: "[TSK] "
+labels: [task]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For work on the repository rather than the engine: adjusting workflows,
+        fixing `CLAUDE.md`, revising these templates, cutting a release, bumping
+        tooling.
+
+        If the change alters how the engine behaves, it is a bug report or a
+        feature request instead.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - CI and workflows
+        - Repository docs (CLAUDE.md, README, templates)
+        - Release
+        - Dependencies and tooling
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What needs doing
+      description: >-
+        The change you want, concretely. Name the files if you know them.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-now
+    attributes:
+      label: Why now
+      description: >-
+        What is wrong with the current state, or what changed to make it wrong. If
+        the present state was a deliberate choice, say so and say what has since
+        made it the wrong one — that is the difference between a task the
+        implementer can carry out with judgement and one it performs blindly.
+    validations:
+      required: true
+
+  - type: textarea
+    id: done-when
+    attributes:
+      label: Done when
+      description: >-
+        The condition that makes this issue closeable, written so it can be checked
+        rather than argued about — a workflow that runs green, a file that contains
+        a specific section, a tag that exists. Required here because repository
+        chores have crisp end states, and one without a stated end state is a wish
+        rather than a task.
+    validations:
+      required: true
+
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: >-
+        What must not change while doing this. Workflow permissions, how secrets are
+        referenced, branch names, sections of an existing template, behaviour other
+        automation depends on. Say "None" if nothing is off limits.
+
+  - type: textarea
+    id: implementer-notes
+    attributes:
+      label: Notes for the implementer
+      description: >-
+        Direction you want followed, if you have any. Prior art to copy, an approach
+        to prefer or avoid, related issues, background on why the current state
+        exists. Blank is fine and means "you decide" — it does not mean "there are
+        no constraints", so the implementer will record the calls it made under
+        Assumptions in the pull request.
