@@ -1,7 +1,7 @@
 name: Repository task
 description: Work on the repository itself — CI, docs, templates, releases — not on engine behaviour.
 title: "[TSK] "
-labels: [chore]
+labels: [task]
 body:
   - type: markdown
     attributes:
