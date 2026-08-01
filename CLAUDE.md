@@ -62,6 +62,20 @@ wins. Say so in the issue thread before implementing anything.
 
 Close the loop when you open the pull request: `Fixes #N` under Summary.
 
+## Verifying changes
+
+Before claiming a build, lint, test, or doc check passed, run it the way CI
+runs it, not an approximation from memory. Read the actual workflow file(s)
+under `.github/workflows/` (currently `ci.yml`) and reproduce the command
+verbatim, including every flag, plus any job-level `env:` the workflow sets
+(e.g. `RUSTFLAGS: -D warnings`, `RUSTDOCFLAGS: -D warnings`) — those apply to
+`build` and `test`, not just `clippy`, and are easy to miss since a plain
+`cargo build`/`cargo test` still succeeds without them, just less strictly
+than CI does. A local run that passes with different flags or a different
+environment is not verification: it can pass locally and still fail in CI on
+the same commit. Re-check the workflow file each time rather than trusting
+a prior read of it, since it can change independently of this document.
+
 ## Opening a pull request
 
 Use `.github/pull_request_template.md` for every PR. GitHub does not apply

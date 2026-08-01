@@ -26,7 +26,7 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          claude_args: --allowedTools "Bash(gh pr comment:*)"
+          claude_args: --allowedTools "Read,Grep,Glob,Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*)"
           prompt: |
             Review pull request #${{ github.event.pull_request.number || inputs.pr_number }} in this repository. Focus on:
             1. Security vulnerabilities
@@ -35,3 +35,17 @@ jobs:
             4. Test coverage
             5. Documentation accuracy
             Post your review as a PR comment.
+
+      # Uploads the action's own execution log so a run that produces no PR
+      # comment can still be diagnosed after the fact (the log is written to
+      # a runner-temp path, not the workspace, so it doesn't survive the job
+      # otherwise). `if: always()` captures it even when the action step
+      # above fails; `if-no-files-found: ignore` keeps a missing log (e.g.
+      # the action erroring before it writes one) from failing the job.
+      - name: Upload Claude execution log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: claude-execution-output
+          path: ${{ runner.temp }}/claude-execution-output.json
+          if-no-files-found: ignore

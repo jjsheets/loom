@@ -15,4 +15,5 @@
 #![deny(clippy::missing_docs_in_private_items)]
 
 pub mod app;
+pub mod ecs;
 pub mod prelude;
