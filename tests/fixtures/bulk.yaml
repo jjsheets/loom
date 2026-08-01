@@ -1,0 +1,20 @@
+components: []
+
+systems:
+  - name: seed
+    phase: new_game
+    sql:
+      - "INSERT INTO entities DEFAULT VALUES"
+      - "INSERT INTO entities DEFAULT VALUES"
+      - "INSERT INTO entities DEFAULT VALUES"
+      - "INSERT INTO entities DEFAULT VALUES"
+      - "INSERT INTO entities DEFAULT VALUES"
+      - "DELETE FROM entities WHERE id IN (1, 2, 3, 4, 5)"
+  - name: bulk_spawn_recycle_only
+    phase: update
+    sql:
+      - "CREATE TEMP TABLE reused AS SELECT id FROM graveyard ORDER BY id LIMIT 3"
+      - "INSERT INTO entities (id) SELECT id FROM reused"
+      - "DELETE FROM graveyard WHERE id IN (SELECT id FROM reused)"
+      - "WITH RECURSIVE fresh(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM fresh WHERE n < (3 - (SELECT COUNT(*) FROM reused))) INSERT INTO entities (id) SELECT NULL FROM fresh WHERE (3 - (SELECT COUNT(*) FROM reused)) > 0"
+      - "DROP TABLE reused"

@@ -1,0 +1,28 @@
+components:
+  - name: position
+    columns: "entity_id INTEGER NOT NULL PRIMARY KEY, x REAL NOT NULL, y REAL NOT NULL"
+    entity_refs: [entity_id]
+  - name: velocity
+    columns: "entity_id INTEGER NOT NULL PRIMARY KEY, dx REAL NOT NULL, dy REAL NOT NULL"
+    entity_refs: [entity_id]
+  - name: tag
+    columns: "entity_id INTEGER NOT NULL, label TEXT NOT NULL"
+    entity_refs: [entity_id]
+  - name: carries
+    columns: "carrier_id INTEGER NOT NULL, item_id INTEGER NOT NULL, PRIMARY KEY (carrier_id, item_id)"
+    entity_refs: [carrier_id, item_id]
+
+systems:
+  - name: seed_initial_entities
+    phase: new_game
+    sql:
+      - "INSERT INTO entities DEFAULT VALUES"
+      - "INSERT INTO entities DEFAULT VALUES"
+      - "INSERT INTO position (entity_id, x, y) SELECT id, 0.0, 0.0 FROM entities"
+      - "INSERT INTO velocity (entity_id, dx, dy) SELECT id, 1.0, 0.5 FROM entities"
+  - name: apply_velocity
+    phase: update
+    sql:
+      - "CREATE TEMP TABLE moved AS SELECT p.entity_id AS entity_id, p.x + v.dx AS new_x, p.y + v.dy AS new_y FROM position p JOIN velocity v ON v.entity_id = p.entity_id"
+      - "UPDATE position SET x = (SELECT new_x FROM moved WHERE moved.entity_id = position.entity_id), y = (SELECT new_y FROM moved WHERE moved.entity_id = position.entity_id) WHERE entity_id IN (SELECT entity_id FROM moved)"
+      - "DROP TABLE moved"
