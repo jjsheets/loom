@@ -30,10 +30,21 @@ the deviation and its reason belong under Design decisions in the pull
 request.
 
 A skipped optional field renders as `_No response_` in the issue body. That
-means the filer did not specify, not that there are no constraints. Make the
-call yourself rather than stalling, then record it under Assumptions in the
-pull request — that section exists precisely to catch the guesses that an issue
-left open.
+means the filer did not specify, not that there are no constraints. On a
+`[BUG]`, a `[TSK]`, or a `[REQ]` marked **Settled — implement as described**,
+make the call yourself rather than stalling, then record it under Assumptions
+in the pull request — that section exists precisely to catch the guesses that
+an issue left open. Settled means the open questions already got asked —
+typically by the AI that helped draft the issue, before it was filed — so a
+remaining gap is genuinely fine to fill in yourself.
+
+On a `[REQ]` marked **Direction agreed, details open**, that pre-filing
+question-asking has not happened yet: the destination is fixed but the
+specifics are not. Ask clarifying questions before you implement, rather than
+guessing and writing the guess up under Assumptions — that section is for
+guesses too minor to interrupt for, not a substitute for asking. Only fall
+back to making the call yourself when a gap is genuinely too small to justify
+a question.
 
 On a `[REQ]` marked **Exploratory — discuss before implementing**, do not open
 a pull request. Comment on the issue with a proposed approach and wait for a
