@@ -3,6 +3,12 @@ name: Claude Code Review
 on:
   pull_request:
     types: [opened, synchronize]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Pull request number to review"
+        required: true
+        type: number
 
 permissions:
   contents: read
@@ -21,7 +27,7 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
-            Review this pull request. Focus on:
+            Review pull request #${{ github.event.pull_request.number || inputs.pr_number }} in this repository. Focus on:
             1. Security vulnerabilities
             2. Performance regressions
             3. Missing error handling
