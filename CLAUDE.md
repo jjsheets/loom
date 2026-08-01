@@ -11,6 +11,12 @@ a new branch or open a separate PR for the fix unless the user asks for
 that explicitly. The goal is for the fix to land in the PR/branch the user
 actually referenced, not in a new one.
 
+A session never has two PRs. If the user's original prompt referred to an
+existing PR, that PR is the one to use for everything asked in the session —
+including follow-up requests that land in files the PR didn't originally
+touch. Use its branch rather than opening a second PR, even when the new
+change is logically unrelated to the PR's original scope.
+
 ## Working from an issue
 
 Issues are the primary way changes to this repository get started, and they
